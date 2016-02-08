@@ -1,0 +1,104 @@
+---
+title: 'Stat 537: Homework 4'
+author: "Brandon Fenton and Kenny Flagg"
+date: "Due Friday, Feb 12 at end of day"
+output: pdf_document
+---
+
+1. _For the ranked data, make a pairs plot of bagplots (using bagplot.pairs). Discuss and identify (by location and name of institution) any potential outliers clearly identified in the pair-wise plots._
+```{r p1_a, echo=F, comment=NA, message=F, warning=F}
+
+```
+There are 248 institutions with no missing cells. 48 institutions are missing the number of full-time faculty, number of non-faculty research staff, and amount of STEM research expense. One institution is missing all variables except for the 2010 Basic Classification. In total, 151 of the 2376 cells are missing.
+
+2. _MRead the help file on the rank function. What is the default choice for dealing with ties? How does this show up in the plots of the data set?_
+```{r p2_a, echo=F, comment=NA, message=F, warning=F, out.width="\\linewidth", out.height="0.5\\linewidth", fig.width=12, fig.height=6}
+
+```
+
+
+3. _Make a plot that includes the correlations. Discuss the strength and directions of correlations. Do you expect to require many dimensions in the PCA to capture the information in these variables?_
+```{r p3_a, echo=F, comment=NA, message=F, warning=F, out.width="\\linewidth", out.height="0.5\\linewidth", fig.width=12, fig.height=6}
+
+```
+After sorting by number of STEM research doctorates, it can be seen that missingness is associated with low numbers values of that variable. This does not support a missing-completely-at-random assumption.
+
+4. _Do a PCA of the correlation matrix based on the ranked data using prcomp._
+A. _Make a nice plot of the eigenvalues (not a bar chart) and discuss the choice of the number of components to use based on the elbow, cumulative percentage of variance, the percentage of variance for each additional component, the latent root criterion and the “simulation” based recommendation discussed in EH. How many would you use here?_
+```{r p4_a, echo=F, comment=NA, message=F, warning=F, out.width="\\linewidth", out.height="0.6\\linewidth", fig.width=12, fig.height=6}
+
+```
+B. _Use the eigenvector coefficients to write out interpretations of the first 3 PCs._
+
+5. _Make a biplot. First, discuss how good of a picture of the data set this is based on the percentage of variation these two PCs contain (is it a “good picture” or is it leaving a lot out?). Discuss the observation that is labelled at 181 based on the biplot. What does the biplot suggest about its values on the two PCs and each of the 7 variables? You should use words like “about average” or discuss much above or below average it is on each in this interpretation. This is about what you are getting from the plot and not necessarily what is in the ranked variables. One would hope that they agree, but that is not always the case._
+```{r p5_a, echo=F, comment=NA, message=F, warning=F, out.width="\\linewidth", out.height="0.3\\linewidth", fig.width=12, fig.height=4}
+
+```
+
+6. _Plot the first two PC scores with the BASIC2015 group information and highlight MSU in this plot. Discuss its location relative to the other schools – which group does it seem to belong to?_
+```{r p6_a, echo=F, comment=NA, message=F, warning=F, out.width="\\linewidth", out.height="0.3\\linewidth", fig.width=12, fig.height=4}
+```
+
+
+7. _The actual Carnegie scale groups are developed also using information from a PCA of 3 per capita variables for staff and the two types of expenditures divided by number of faculty. Repeat the PCA of the correlation matrix of the ranked data for these three variables, make a biplot, and interpret the first two PCs._
+```{r p7_a, echo=F, comment=NA, message=F, warning=F, out.width="\\linewidth", out.height="0.3\\linewidth", fig.width=12, fig.height=4}
+```
+
+8. _Make a plot of the first PC from the “aggregated” and ranked data and the first PCA from this per capita ranked data with the aggegrated data PC score on the x-axis. Orient the plots so that higher is better, add information from BASIC2015 to the plot and indicate/flag MSU in some fashion._
+```{r p8_a, echo=F, comment=NA, message=F, warning=F, out.width="\\linewidth", out.height="0.3\\linewidth", fig.width=12, fig.height=4}
+```
+
+9. _Discuss MSU’s location on these two dimensions and the separation among the three Carnegie classifications._
+```{r p9_a, echo=F, comment=NA, message=F, warning=F, out.width="\\linewidth", out.height="0.3\\linewidth", fig.width=12, fig.height=4}
+```
+
+## R Code Appendix:
+Problem 1:
+```{r a1, ref.label='p1_a', eval=F}
+```
+
+Problem 2:
+```{r a2, ref.label='p2_a', eval=F}
+```
+
+Problem 3:
+```{r a3, ref.label='p3_a', eval=F}
+```
+
+Problem 4:
+```{r a4, ref.label='p4_a', eval=F}
+```
+
+Problem 5:
+```{r a5, ref.label='p5_a', eval=F}
+```
+
+```{r a5b, ref.label='p5_b', eval=F}
+```
+
+Problem 6:
+```{r a6, ref.label='p6_a', eval=F}
+```
+
+Problem 7:
+```{r a7, ref.label='p7_a', eval=F}
+```
+
+Problem 8:
+```{r a8, ref.label='p8_a', eval=F}
+```
+
+Problem 9:
+```{r a9, ref.label='p9_a', eval=F}
+```
+
+### About This Markdown File
+
+  * File creation date: `r Sys.Date()`
+  * `r R.version.string`
+  * R version (short form): `r getRversion()`
+  * Additional session information
+  
+```{r echo=FALSE}
+sessionInfo()  # could use devtools::session_info() if you prefer that
+```

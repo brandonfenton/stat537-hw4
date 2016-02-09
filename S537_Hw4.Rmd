@@ -42,7 +42,7 @@ UC Denver is also potentially an outlier in __PDNFRSTAFF__ and __S.ER.D__.
 cc2015Rs[(cc2015Rs_2$PDNFRSTAFF<50 & cc2015Rs_2$S.ER.D>200), c(1, 9, 10)]
 ```
 
-Denver is at the lower bound of the observed values of PDNFRSTAFF; however none of these institutions appear to be outliers in any single variable so they would not have been discovered as possible outliers had we not examined the pairwise plots.
+Denver is tied for the lowest rank in terms of PDNFRSTAFF; however none of these institutions appear to be outliers in any single variable so they would not have been discovered as possible outliers had we not examined the pairwise plots.
 
 2. _Read the help file on the rank function. What is the default choice for dealing with ties? How does this show up in the plots of the data set?_
 

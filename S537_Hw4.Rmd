@@ -2,7 +2,7 @@
 title: 'Stat 537: Homework 4'
 author: "Brandon Fenton and Kenny Flagg"
 date: "Due Friday, Feb 12 at end of day"
-output: html_document
+output: pdf_document
 ---
 
 1. _For the ranked data, make a pairs plot of bagplots (using bagplot.pairs). Discuss and identify (by location and name of institution) any potential outliers clearly identified in the pair-wise plots._

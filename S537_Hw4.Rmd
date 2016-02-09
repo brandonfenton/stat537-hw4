@@ -3,10 +3,12 @@ title: 'Stat 537: Homework 4'
 author: "Brandon Fenton and Kenny Flagg"
 date: "Due Friday, Feb 12 at end of day"
 output: pdf_document
+header-includes:
+   - \usepackage{float}
 ---
 
 1. _For the ranked data, make a pairs plot of bagplots (using bagplot.pairs). Discuss and identify (by location and name of institution) any potential outliers clearly identified in the pair-wise plots._
-```{r p1_a, echo=F, comment=NA, message=F, warning=F, fig.width=15, fig.height=12, out.width="\\linewidth", out.height="0.75\\linewidth", fig.cap="Pairwise bagplots", cache=T}
+```{r p1_a, echo=F, comment=NA, message=F, warning=F, fig.width=15, fig.height=12, out.width="\\linewidth", out.height="0.75\\linewidth", fig.cap="Pairwise bagplots", fig.pos="H" fig.align="center", cache=T}
 require(aplpack)
 
 cc2015<-read.csv("https://montana.box.com/shared/static/0tp7ooud5sux4wzpkrjgklpudrreu6jc.csv",header=T,na.strings="dnr")
@@ -50,7 +52,7 @@ The __rank__ function allows several ways of dealing with ties via the __ties.me
 
 3. _Make a plot that includes the correlations. Discuss the strength and directions of correlations. Do you expect to require many dimensions in the PCA to capture the information in these variables?_
 
-```{r p3_a, echo=F, comment=NA, message=F, warning=F, out.width="\\linewidth", out.height="0.5\\linewidth", fig.width=14, fig.height=7, fig.align="center", fig.cap="All pairwise correlations"}
+```{r p3_a, echo=F, comment=NA, message=F, warning=F, out.width="\\linewidth", out.height="0.5\\linewidth", fig.width=14, fig.height=7, fig.align="center", fig.cap="All pairwise correlations", fig.pos="H"}
 require(corrplot)
 cor.mat <- cor(cc2015Rs_2)
 corrplot.mixed(cor.mat, srt = -45)

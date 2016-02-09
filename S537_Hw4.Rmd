@@ -7,6 +7,7 @@ header-includes: \usepackage{float}
 ---
 
 1. _For the ranked data, make a pairs plot of bagplots (using bagplot.pairs). Discuss and identify (by location and name of institution) any potential outliers clearly identified in the pair-wise plots._
+
 ```{r p1_a, echo=F, comment=NA, message=F, warning=F, fig.width=15, fig.height=12, out.width="\\linewidth", out.height="0.75\\linewidth", fig.pos="H", fig.align="center", cache=T}
 #fig.cap="Pairwise bagplots",
 require(aplpack)
@@ -61,22 +62,35 @@ corrplot.mixed(cor.mat, srt = -45)
 
 All of the correlations are positive and most are moderate to strong. The weakest correlations are between __OTHER\_RSD__ and __STEM\_RSD__, __PDNFRSTAFF__, and __S.ER.D__. These are weak to moderate correlations of around 0.4. Given the strong associations between the variables we expect to need very few dimensions to capture the variation in the data, with most of the variation explained by the first principal component.
 
+\pagebreak
 4. _Do a PCA of the correlation matrix based on the ranked data using prcomp._
-A. _Make a nice plot of the eigenvalues (not a bar chart) and discuss the choice of the number of components to use based on the elbow, cumulative percentage of variance, the percentage of variance for each additional component, the latent root criterion and the “simulation” based recommendation discussed in EH. How many would you use here?_
-```{r p4_a, echo=F, comment=NA, message=F, warning=F, out.width="\\linewidth", out.height="0.6\\linewidth", fig.width=12, fig.height=6}
+
+a. _Make a nice plot of the eigenvalues (not a bar chart) and discuss the choice of the number of components to use based on the elbow, cumulative percentage of variance, the percentage of variance for each additional component, the latent root criterion and the “simulation” based recommendation discussed in EH. How many would you use here?_
+
+```{r p4_a, echo=F, comment=NA, message=F, warning=F}
 require(pander)
 
 pcs <- prcomp(cor.mat, scale=T)
-pander(summary(pcs))
 evals <- pcs$sdev^2
 ev.total <- sum(evals)
 ev.props <- evals/ev.total
 ev.prop.cum <- cumsum(ev.props)
 pander(data.frame(PC=1:7, Eigenvalue=signif(evals,3), Proportion=signif(ev.props,3), 
                   Cumulative =signif(ev.prop.cum,3)))
+```
+```{r p4_b, echo=F, comment=NA, message=F, warning=F, out.width="\\linewidth", out.height="0.6\\linewidth", fig.width=12, fig.height=6, fig.pos="H", fig.cap="Scree Plot"}
 plot(pcs, type="lines", main = "Eigenvalues")
 ```
-B. _Use the eigenvector coefficients to write out interpretations of the first 3 PCs._
+The elbow of the plot occurs at PC2, indicating that the principal components beyond the first two have relatively small individual contributions to the observed variation. The first two PCs explain 80.9\% of the variance; the third PC brings the cumulative total to 95.0\% and the first four PCs describe 99.1\% of the variance, meaning that nearly all of the variation can be described in four dimensions. The individual percentages of variance for the first four PCs are, respectively, 55.5\%, 25.4\%, 14.1\%, and 4.09\%. Based on the individual contributions we might use only the first three pricipal components because the fourth has a relatively unsubstantial contribution. By the latent root criterion, the first two PCs would be used as they are the only ones that contribute more than expected; PC3 comes close to the critical variance of 1 and would be included by Jolliffe's threshold of 0.7. All things considered, we would use the first three principal components because they contribute 95\% of the total variation, leaving very little variation in any additional PC.
+
+\pagebreak
+b. _Use the eigenvector coefficients to write out interpretations of the first 3 PCs._
+
+```{r p4_c, echo=F, comment=NA, message=F, warning=F}
+pander(pcs)
+```
+
+PC1 is a weighted average of __STEM\_RSD__, __PDNFRSTAFF__, and __S.ER.D__ contrasted with __OTHER\_RSD__. PC2 is an average of __HUM\_RSD__ and __SOCSC\_RSD__, and PC3 is __NONS.ER.D__.
 
 5. _Make a biplot. First, discuss how good of a picture of the data set this is based on the percentage of variation these two PCs contain (is it a “good picture” or is it leaving a lot out?). Discuss the observation that is labelled at 181 based on the biplot. What does the biplot suggest about its values on the two PCs and each of the 7 variables? You should use words like “about average” or discuss much above or below average it is on each in this interpretation. This is about what you are getting from the plot and not necessarily what is in the ranked variables. One would hope that they agree, but that is not always the case._
 ```{r p5_a, echo=F, comment=NA, message=F, warning=F, out.width="\\linewidth", out.height="0.3\\linewidth", fig.width=12, fig.height=4}
@@ -133,6 +147,10 @@ Problem 3:
 
 Problem 4:
 ```{r a4, ref.label='p4_a', eval=F}
+```
+```{r b4, ref.label='p4_b', eval=F}
+```
+```{r c4, ref.label='p4_c', eval=F}
 ```
 
 Problem 5:

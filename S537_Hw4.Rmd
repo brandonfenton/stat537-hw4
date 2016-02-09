@@ -29,9 +29,8 @@ cc2015Rs[(cc2015Rs$BASIC2010<10) & (cc2015$BASIC2010),1:2]
 Knowing that UC Merced was founded just over 10 years ago, it seems reasonable to guess 
 
 2. _MRead the help file on the rank function. What is the default choice for dealing with ties? How does this show up in the plots of the data set?_
-```{r p2_a, echo=F, comment=NA, message=F, warning=F, out.width="\\linewidth", out.height="0.5\\linewidth", fig.width=12, fig.height=6}
+The __rank__ function allows several ways of dealing with ties via the __ties.method__ argument, but the default method is to assign the mean of the ranks the tied observations would hold to each of the tied observations.  If this method is used, rank-based plots involving tied values will contain gaps corresponding to the ranks which have not been assigned.  For example, __rank(c(5,6,6,6,7))__ would assign a rank of 3 to the middle three values, and a plot of ranked values would contain empty space in locations corresponding to ranks 2 and 4 for that variable.
 
-```
 
 
 3. _Make a plot that includes the correlations. Discuss the strength and directions of correlations. Do you expect to require many dimensions in the PCA to capture the information in these variables?_
@@ -74,10 +73,6 @@ Problem 1:
 ```{r a1, ref.label='p1_a', eval=F}
 ```
 ```{r b1, ref.label='p1_b', eval=F}
-```
-
-Problem 2:
-```{r a2, ref.label='p2_a', eval=F}
 ```
 
 Problem 3:

@@ -70,7 +70,7 @@ a. _Make a nice plot of the eigenvalues (not a bar chart) and discuss the choice
 ```{r p4_a, echo=F, comment=NA, message=F, warning=F}
 require(pander)
 
-pcs <- prcomp(cor.mat, scale=T)
+pcs <- prcomp(cc2015Rs_2, scale=T, center=T)
 evals <- pcs$sdev^2
 ev.total <- sum(evals)
 ev.props <- evals/ev.total

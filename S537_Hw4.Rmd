@@ -8,7 +8,7 @@ header-includes: \usepackage{float}
 
 1. _For the ranked data, make a pairs plot of bagplots (using bagplot.pairs). Discuss and identify (by location and name of institution) any potential outliers clearly identified in the pair-wise plots._
 
-```{r p1_a, echo=F, comment=NA, message=F, warning=F, fig.width=15, fig.height=12, out.width="\\linewidth", out.height="0.75\\linewidth", fig.pos="H", fig.align="center", cache=T}
+```{r p1_a, echo=F, comment=NA, message=F, warning=F, fig.width=15, fig.height=12, out.width="\\linewidth", out.height="0.75\\linewidth", fig.pos="H", fig.align="center", fig.cap="Pairwise bagplots", cache=T}
 #fig.cap="Pairwise bagplots",
 require(aplpack)
 
@@ -26,24 +26,25 @@ cc2015Rs_2<-cc2015Rs[,c("HUM_RSD","OTHER_RSD","SOCSC_RSD","STEM_RSD","PDNFRSTAFF
 invisible(bagplot.pairs(cc2015Rs_2))
 ```
 
-UC Denver and Rockefeller University are potential outliers in __STEM\_RSD__ and __PDNFRSTAFF__.
+UC Denver and Rockefeller University are potential outliers in number of STEM research doctorates and paid non-faculty research staff.
 ```{r p1_b, echo=F, comment=NA, message=F, warning=F}
 cc2015Rs[(cc2015Rs_2$STEM_RSD<100 & cc2015Rs_2$PDNFRSTAFF>200) |
            (cc2015Rs_2$STEM_RSD>160 & cc2015Rs_2$PDNFRSTAFF<30),
          c(1, 8, 9)]
 ```
 
-CUNY Graduate School is a potential outlier in __STEM\_RSD__ and __S.ER.D__.
+\pagebreak
+CUNY Graduate School is a potential outlier in number of STEM research doctorates and STEM research expense.
 ```{r p1_c, echo=F, comment=NA, message=F, warning=F}
 cc2015Rs[(cc2015Rs_2$STEM_RSD>200 & cc2015Rs_2$S.ER.D<50), c(1, 8, 10)]
 ```
 
-UC Denver is also potentially an outlier in __PDNFRSTAFF__ and __S.ER.D__.
+UC Denver is also potentially an outlier in paid non-faculty research staff and STEM research expense.
 ```{r p1_d, echo=F, comment=NA, message=F, warning=F}
 cc2015Rs[(cc2015Rs_2$PDNFRSTAFF<50 & cc2015Rs_2$S.ER.D>200), c(1, 9, 10)]
 ```
 
-Denver is tied for the lowest rank in terms of PDNFRSTAFF; however none of these institutions appear to be outliers in any single variable so they would not have been discovered as possible outliers had we not examined the pairwise plots.
+Denver is tied for the lowest rank in terms of paid non-faculty research staff; however none of these institutions appear to be outliers in any single variable so they would not have been discovered as possible outliers had we not examined the pairwise plots.
 
 
 2. _Read the help file on the rank function. What is the default choice for dealing with ties? How does this show up in the plots of the data set?_
@@ -57,12 +58,11 @@ The __rank__ function allows several ways of dealing with ties via the __ties.me
 ```{r p3_a, echo=F, comment=NA, message=F, warning=F, out.width="\\linewidth", out.height="0.5\\linewidth", fig.width=14, fig.height=7, fig.align="center", fig.cap="All pairwise correlations", fig.pos="H"}
 require(corrplot)
 cor.mat <- cor(cc2015Rs_2)
-corrplot.mixed(cor.mat, srt = -45)
+corrplot.mixed(cor.mat, srt = 45)
 ```
 
-All of the correlations are positive and most are moderate to strong. The weakest correlations are between __OTHER\_RSD__ and __STEM\_RSD__, __PDNFRSTAFF__, and __S.ER.D__. These are weak to moderate correlations of around 0.4. Given the strong associations between the variables we expect to need very few dimensions to capture the variation in the data, with most of the variation explained by the first principal component.
+All of the correlations are positive and most are moderate to strong. The weakest correlations are between number of other research doctorates and STEM research doctorates, paid non-faculty research staff, and STEM research expense. These are weak to moderate correlations of around 0.4. Given the strong associations between the variables we expect to need very few dimensions to capture the variation in the data, with most of the variation explained by the first principal component.
 
-\pagebreak
 4. _Do a PCA of the correlation matrix based on the ranked data using prcomp._
 
 a. _Make a nice plot of the eigenvalues (not a bar chart) and discuss the choice of the number of components to use based on the elbow, cumulative percentage of variance, the percentage of variance for each additional component, the latent root criterion and the “simulation” based recommendation discussed in EH. How many would you use here?_
@@ -78,28 +78,39 @@ ev.prop.cum <- cumsum(ev.props)
 pander(data.frame(PC=1:7, Eigenvalue=signif(evals,3), Proportion=signif(ev.props,3), 
                   Cumulative =signif(ev.prop.cum,3)))
 ```
+
 ```{r p4_b, echo=F, comment=NA, message=F, warning=F, out.width="\\linewidth", out.height="0.6\\linewidth", fig.width=12, fig.height=6, fig.pos="H", fig.cap="Scree Plot"}
 plot(pcs, type="lines", main = "Eigenvalues")
+abline(h=c(1, 0.75), lty=2:3)
 ```
-The elbow of the plot occurs at PC2, indicating that the principal components beyond the first two have relatively small individual contributions to the observed variation. The first two PCs explain 82.8\% of the variance; the third PC brings the cumulative total to 89.2\% and the first four PCs describe 95.1\% of the variance, meaning that nearly all of the variation can be described in three or four dimensions. The individual percentages of variance for the first four PCs are, respectively, 70.6\%, 12.1\%, 6.43\%, and 5.85\%. Based on the individual contributions we might use only the first two pricipal components because the third PC and beyond make relatively unsubstantial contributions. By the latent root criterion, only the first PCs would be used as it is the only one that contributes more than expected; PC2 would be included by Jolliffe's threshold of 0.7. All things considered, we would use the first three principal components because they contribute 89\% of the total variation, leaving very little variation in any additional component.
 
-\pagebreak
+The elbow of the plot occurs at PC2, indicating that the principal components beyond the first two have relatively small individual contributions to the observed variation. The first two PCs explain 82.8\% of the variance; the third PC brings the cumulative total to 89.2\% and the first four PCs describe 95.1\% of the variance, meaning that nearly all of the variation can be described in three or four dimensions. The individual percentages of variance for the first four PCs are, respectively, 70.6\%, 12.1\%, 6.43\%, and 5.85\%. The criteria of explaining 95\% of the variance or using components that individually contribute at least 5\% of the variance would suggest using four principal components. By the latent root criterion, only the first PC would be used as it is the only one that contributes more than expected; PC2 would be included by Jolliffe's threshold of 0.7. All things considered, we would use the first three principal components because they contribute 89\% of the total variation, leaving very little variation in any additional component.
+
 b. _Use the eigenvector coefficients to write out interpretations of the first 3 PCs._
 
 ```{r p4_c, echo=F, comment=NA, message=F, warning=F}
 pander(pcs)
 ```
 
-PC1 is a weighted average of all on the variables. PC2 is __OTHER\_RSD__, and PC3 is a weighted average of __HUM\_RSD__ and __SOCSC\_RSD__ contrasted with a weighted average of __NONS.ER.D__ and __OTHER\_RSD__.
+PC1 is a weighted average of all of the variables except number of other research doctorates. PC2 is the number of other research doctorates, and PC3 is a weighted average of the number of humanities research doctorates and the number of social sciences research doctorate contrasted with a weighted average of the non-STEM research expense and number of other research doctorates.
 
-5. _Make a biplot. First, discuss how good of a picture of the data set this is based on the percentage of variation these two PCs contain (is it a “good picture” or is it leaving a lot out?). Discuss the observation that is labelled at 181 based on the biplot. What does the biplot suggest about its values on the two PCs and each of the 7 variables? You should use words like “about average” or discuss much above or below average it is on each in this interpretation. This is about what you are getting from the plot and not necessarily what is in the ranked variables. One would hope that they agree, but that is not always the case._
+5. _Make a biplot. First, discuss how good of a picture of the data set this is based on the percentage of variation these two PCs contain (is it a “good picture” or is it leaving a lot out?). Discuss the observation that is labelled at 181 based on the biplot. What does the biplot suggest about its values on the two PCs and each of the 7 variables? You should use words like “about average” or discuss how much above or below average it is on each in this interpretation. This is about what you are getting from the plot and not necessarily what is in the ranked variables. One would hope that they agree, but that is not always the case._
 
-```{r p5_a, echo=F, comment=NA, message=F, warning=F, out.width="0.6\\linewidth", out.height="0.4\\linewidth", fig.width=9, fig.height=6, fig.cap="Biplot of the first two PCs", fig.align="center", fig.pos="H"}
-biplot(pcs, xlim = c(-0.15, 0.2), col =  c("#00000040", "#ff0000ff"))
+```{r p5_a, echo=F, comment=NA, message=F, warning=F, out.width="0.5\\linewidth", out.height="0.5\\linewidth", fig.width=6, fig.height=6, fig.cap="Biplot of the first two PCs", fig.align="center", fig.pos="H"}
+biplot(pcs, xlim = c(-0.12, 0.17), col =  c("#00000040", "#ff0000c0"))
+
+# The plot shows row names, not row indices. Bazinga.
+#cc2015Rs["181",]
+#predict(pcs)["181",]
 ```
 
+This plot provides a good illustration of the dataset because 82.8\% of the variation occurs in the PC1-PC2 plane. Thus, most of the structure in the data lies in these two dimensions and appears on this plot.
+
+Observation 181 corresponds to CalTech. This institution scores about average on the first principal component, but far below average on the second. It ranks extremely high in terms of STEM research doctorates, paid non-faculty research staff, and STEM research spending. However, it is below average in number of humanites and social sciences research doctorates and non-STEM research spending, and it is one of the lowest ranked in number of other research doctorates.
+
 6. _Plot the first two PC scores with the BASIC2015 group information and highlight MSU in this plot. Discuss its location relative to the other schools – which group does it seem to belong to?_
-```{r p6_a, echo=F, comment=NA, message=F, warning=F, out.width="0.8\\linewidth", out.height="0.8\\linewidth", fig.width=6, fig.height=6}
+
+```{r p6_a, echo=F, comment=NA, message=F, warning=F, out.width="0.5\\linewidth", out.height="0.5\\linewidth", fig.width=5, fig.height=5, fig.align="center", fig.cap="Plot of the first two PC scores by Carnegie clasification", fig.pos="H"}
 #pc.scores <- as.matrix(cc2015Rs_2) %*% predict(pcs)[,1:2]
 pc.scores <- predict(pcs)[,1:2]
 score.col <- as.numeric(cc2015Rs$BASIC2015) + 3
@@ -107,7 +118,7 @@ score.pch <- score.col
 score.col[which(cc2015Rs$NAME=="Montana State University")] <- 2
 score.pch[which(cc2015Rs$NAME=="Montana State University")] <- 19
 plot(pc.scores, col=score.col, pch=score.pch)
-legend(x=max(pc.scores[,1])*0.7, y=min(pc.scores[,2])*0.55,
+legend("bottomright",
        c(levels(unique(cc2015Rs$BASIC2015)),"MSU"), 
        col = unique(score.col), pch=unique(score.pch))
 
@@ -117,6 +128,7 @@ This plot shows clear visual separation between the three classifications, sugge
 
 
 7. _The actual Carnegie scale groups are developed also using information from a PCA of 3 per capita variables for staff and the two types of expenditures divided by number of faculty. Repeat the PCA of the correlation matrix of the ranked data for these three variables, make a biplot, and interpret the first two PCs._
+
 ```{r p7_a, echo=F, comment=NA, message=F, warning=F, out.width="\\linewidth", out.height="0.3\\linewidth", fig.width=12, fig.height=4}
 cc2015percap<-cc2015Ps2[,c("PDNFRSTAFF","S.ER.D","NONS.ER.D")]/cc2015Ps2$FACNUM
 cc2015percap_rank<-data.frame(sapply(cc2015percap,rank))
@@ -138,10 +150,11 @@ pander(pcpcs)
 
 ```{r p7_b, echo=F, comment=NA, message=F, warning=F, out.width="\\linewidth", out.height="0.6\\linewidth", fig.width=12, fig.height=6}
 plot(pcpcs, type="lines", main = "Eigenvalues")
+abline(h=c(1, 0.75), lty=2:3)
 ```
 
 ```{r p7_c, echo=F, comment=NA, message=F, warning=F, out.width="0.6\\linewidth", out.height="0.4\\linewidth", fig.width=9, fig.height=6, fig.cap="Biplot of the first two PCs", fig.align="center", fig.pos="H"}
-biplot(pcpcs, xlim = c(-0.15, 0.2), col =  c("#00000040", "#ff0000ff"))
+biplot(pcpcs, xlim = c(-0.15, 0.2), col =  c("#00000040", "#ff0000c0"))
 ```
 
 8. _Make a plot of the first PC from the “aggregated” and ranked data and the first PCA from this per capita ranked data with the aggegrated data PC score on the x-axis. Orient the plots so that higher is better, add information from BASIC2015 to the plot and indicate/flag MSU in some fashion._

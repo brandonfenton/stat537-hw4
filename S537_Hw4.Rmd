@@ -87,7 +87,7 @@ biplot(pcs)
 ```{r p6_a, echo=F, comment=NA, message=F, warning=F, out.width="\\linewidth", out.height="0.3\\linewidth", fig.width=12, fig.height=4}
 pc.scores <- as.matrix(cc2015Rs_2) %*% predict(pcs)[,1:2]
 plot(pc.scores, col=cc2015Rs$BASIC2015, pch=as.numeric(cc2015Rs$BASIC2015))
-
+points(pc.scores[which(cc2015Rs$NAME=="Montana State University"),], col="blue", pch=19)
 ```
 
 

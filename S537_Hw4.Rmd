@@ -42,13 +42,14 @@ cc2015Rs[(cc2015Rs_2$PDNFRSTAFF<50 & cc2015Rs_2$S.ER.D>200), c(1, 9, 10)]
 
 Denver is at the lower bound of the observed values of PDNFRSTAFF; however none of these institutions appear to be outliers in any single variable so they would not have been discovered as possible outliers had we not examined the pairwise plots.
 
-2. _MRead the help file on the rank function. What is the default choice for dealing with ties? How does this show up in the plots of the data set?_
+2. _Read the help file on the rank function. What is the default choice for dealing with ties? How does this show up in the plots of the data set?_
 The __rank__ function allows several ways of dealing with ties via the __ties.method__ argument, but the default method is to assign the mean of the ranks the tied observations would hold to each of the tied observations.  If this method is used, rank-based plots involving tied values will contain gaps corresponding to the ranks which have not been assigned.  For example, __rank(c(5,6,6,6,7))__ would assign a rank of 3 to the middle three values, and a plot of ranked values would contain empty space in locations corresponding to ranks 2 and 4 for that variable.
 
 
 
 3. _Make a plot that includes the correlations. Discuss the strength and directions of correlations. Do you expect to require many dimensions in the PCA to capture the information in these variables?_
 ```{r p3_a, echo=F, comment=NA, message=F, warning=F, out.width="\\linewidth", out.height="0.5\\linewidth", fig.width=12, fig.height=6}
+require(corrplot)
 cor.mat <- cor(cc2015Rs_2)
 corrplot.mixed(cor.mat)
 ```

@@ -100,7 +100,6 @@ biplot(pcs)
 
 6. _Plot the first two PC scores with the BASIC2015 group information and highlight MSU in this plot. Discuss its location relative to the other schools – which group does it seem to belong to?_
 ```{r p6_a, echo=F, comment=NA, message=F, warning=F, out.width="0.8\\linewidth", out.height="0.8\\linewidth", fig.width=6, fig.height=6}
-#something weird going on here
 #pc.scores <- as.matrix(cc2015Rs_2) %*% predict(pcs)[,1:2]
 pc.scores <- predict(pcs)[,1:2]
 score.col <- as.numeric(cc2015Rs$BASIC2015) + 3
@@ -109,7 +108,7 @@ score.col[which(cc2015Rs$NAME=="Montana State University")] <- 2
 score.pch[which(cc2015Rs$NAME=="Montana State University")] <- 19
 plot(pc.scores, col=score.col, pch=score.pch)
 legend(x=max(pc.scores[,1])*0.7, y=max(pc.scores[,2])*0.97,legend=c(unique(cc2015Rs$BASIC2015),"MSU"), 
-       col = unique(score.col2), pch=unique(score.pch2))
+       col = unique(score.col), pch=unique(score.pch))
 
 ```
 

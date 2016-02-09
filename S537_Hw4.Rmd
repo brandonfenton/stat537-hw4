@@ -2,7 +2,7 @@
 title: 'Stat 537: Homework 4'
 author: "Brandon Fenton and Kenny Flagg"
 date: "Due Friday, Feb 12 at end of day"
-output: pdf_document
+output: html_document
 ---
 
 1. _For the ranked data, make a pairs plot of bagplots (using bagplot.pairs). Discuss and identify (by location and name of institution) any potential outliers clearly identified in the pair-wise plots._
@@ -38,27 +38,38 @@ The __rank__ function allows several ways of dealing with ties via the __ties.me
 ```{r p3_a, echo=F, comment=NA, message=F, warning=F, out.width="\\linewidth", out.height="0.5\\linewidth", fig.width=12, fig.height=6}
 
 ```
-After sorting by number of STEM research doctorates, it can be seen that missingness is associated with low numbers values of that variable. This does not support a missing-completely-at-random assumption.
 
 4. _Do a PCA of the correlation matrix based on the ranked data using prcomp._
 A. _Make a nice plot of the eigenvalues (not a bar chart) and discuss the choice of the number of components to use based on the elbow, cumulative percentage of variance, the percentage of variance for each additional component, the latent root criterion and the “simulation” based recommendation discussed in EH. How many would you use here?_
 ```{r p4_a, echo=F, comment=NA, message=F, warning=F, out.width="\\linewidth", out.height="0.6\\linewidth", fig.width=12, fig.height=6}
-
+require(pander)
+cor.mat <- cor(cc2015Rs_2)
+pcs <- prcomp(cor.mat)
+pander(summary(pcs))
+plot(pcs, type="lines", main = "Eigenvalues")
 ```
 B. _Use the eigenvector coefficients to write out interpretations of the first 3 PCs._
 
 5. _Make a biplot. First, discuss how good of a picture of the data set this is based on the percentage of variation these two PCs contain (is it a “good picture” or is it leaving a lot out?). Discuss the observation that is labelled at 181 based on the biplot. What does the biplot suggest about its values on the two PCs and each of the 7 variables? You should use words like “about average” or discuss much above or below average it is on each in this interpretation. This is about what you are getting from the plot and not necessarily what is in the ranked variables. One would hope that they agree, but that is not always the case._
 ```{r p5_a, echo=F, comment=NA, message=F, warning=F, out.width="\\linewidth", out.height="0.3\\linewidth", fig.width=12, fig.height=4}
-
+biplot(pcs)
 ```
 
 6. _Plot the first two PC scores with the BASIC2015 group information and highlight MSU in this plot. Discuss its location relative to the other schools – which group does it seem to belong to?_
 ```{r p6_a, echo=F, comment=NA, message=F, warning=F, out.width="\\linewidth", out.height="0.3\\linewidth", fig.width=12, fig.height=4}
+plot(predict(pcs)[,1:2], col=cc2015Rs$BASIC2015, pch=as.numeric(cc2015Rs$BASIC2015))
 ```
 
 
 7. _The actual Carnegie scale groups are developed also using information from a PCA of 3 per capita variables for staff and the two types of expenditures divided by number of faculty. Repeat the PCA of the correlation matrix of the ranked data for these three variables, make a biplot, and interpret the first two PCs._
 ```{r p7_a, echo=F, comment=NA, message=F, warning=F, out.width="\\linewidth", out.height="0.3\\linewidth", fig.width=12, fig.height=4}
+cc2015percap<-cc2015Ps2[,c("PDNFRSTAFF","S.ER.D","NONS.ER.D")]/cc2015Ps2$FACNUM
+cc2015percap_rank<-data.frame(sapply(cc2015percap,rank))
+pcpcs <- prcomp(cor(cc2015percap_rank))
+# bagplot.pairs(cc2015percap_rank)
+# pairs.panels(cc2015percap_rank)
+plot(pcpcs, type="lines", main = "Eigenvalues")
+biplot(pcpcs)
 ```
 
 8. _Make a plot of the first PC from the “aggregated” and ranked data and the first PCA from this per capita ranked data with the aggegrated data PC score on the x-axis. Orient the plots so that higher is better, add information from BASIC2015 to the plot and indicate/flag MSU in some fashion._

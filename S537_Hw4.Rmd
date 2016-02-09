@@ -2,9 +2,8 @@
 title: 'Stat 537: Homework 4'
 author: "Brandon Fenton and Kenny Flagg"
 date: "Due Friday, Feb 12 at end of day"
-output: pdf_document
-header-includes:
-   - \usepackage{float}
+output: html_document
+header-includes: \usepackage{float}
 ---
 
 1. _For the ranked data, make a pairs plot of bagplots (using bagplot.pairs). Discuss and identify (by location and name of institution) any potential outliers clearly identified in the pair-wise plots._
@@ -98,6 +97,12 @@ cc2015percap_rank<-data.frame(sapply(cc2015percap,rank))
 pcpcs <- prcomp(cor(cc2015percap_rank))
 # bagplot.pairs(cc2015percap_rank)
 # pairs.panels(cc2015percap_rank)
+percevals <- pcpcs$sdev^2
+percev.total <- sum(percevals)
+percev.props <- percevals/percev.total
+percev.prop.cum <- cumsum(percev.props)
+pander(data.frame(PC=1:3, Eigenvalue = signif(percevals,3), Proportion = signif(percev.props,3), 
+                  Cumulative = signif(percev.prop.cum,3)))
 plot(pcpcs, type="lines", main = "Eigenvalues")
 biplot(pcpcs)
 ```

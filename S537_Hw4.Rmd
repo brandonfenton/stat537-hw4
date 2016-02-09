@@ -66,7 +66,7 @@ A. _Make a nice plot of the eigenvalues (not a bar chart) and discuss the choice
 ```{r p4_a, echo=F, comment=NA, message=F, warning=F, out.width="\\linewidth", out.height="0.6\\linewidth", fig.width=12, fig.height=6}
 require(pander)
 
-pcs <- prcomp(cor.mat)
+pcs <- prcomp(cor.mat, scale=T)
 pander(summary(pcs))
 evals <- pcs$sdev^2
 ev.total <- sum(evals)
@@ -95,7 +95,7 @@ plot(pc.scores, col=cc2015Rs$BASIC2015, pch=as.numeric(cc2015Rs$BASIC2015))
 ```{r p7_a, echo=F, comment=NA, message=F, warning=F, out.width="\\linewidth", out.height="0.3\\linewidth", fig.width=12, fig.height=4}
 cc2015percap<-cc2015Ps2[,c("PDNFRSTAFF","S.ER.D","NONS.ER.D")]/cc2015Ps2$FACNUM
 cc2015percap_rank<-data.frame(sapply(cc2015percap,rank))
-pcpcs <- prcomp(cor(cc2015percap_rank))
+pcpcs <- prcomp(cor(cc2015percap_rank), scale=T)
 # bagplot.pairs(cc2015percap_rank)
 # pairs.panels(cc2015percap_rank)
 percevals <- pcpcs$sdev^2

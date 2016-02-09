@@ -49,14 +49,15 @@ The __rank__ function allows several ways of dealing with ties via the __ties.me
 
 3. _Make a plot that includes the correlations. Discuss the strength and directions of correlations. Do you expect to require many dimensions in the PCA to capture the information in these variables?_
 ```{r p3_a, echo=F, comment=NA, message=F, warning=F, out.width="\\linewidth", out.height="0.5\\linewidth", fig.width=12, fig.height=6}
-
+cor.mat <- cor(cc2015Rs_2)
+corrplot.mixed(cor.mat)
 ```
 
 4. _Do a PCA of the correlation matrix based on the ranked data using prcomp._
 A. _Make a nice plot of the eigenvalues (not a bar chart) and discuss the choice of the number of components to use based on the elbow, cumulative percentage of variance, the percentage of variance for each additional component, the latent root criterion and the “simulation” based recommendation discussed in EH. How many would you use here?_
 ```{r p4_a, echo=F, comment=NA, message=F, warning=F, out.width="\\linewidth", out.height="0.6\\linewidth", fig.width=12, fig.height=6}
 require(pander)
-cor.mat <- cor(cc2015Rs_2)
+
 pcs <- prcomp(cor.mat)
 pander(summary(pcs))
 plot(pcs, type="lines", main = "Eigenvalues")

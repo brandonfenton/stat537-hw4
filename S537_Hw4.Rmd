@@ -2,7 +2,7 @@
 title: 'Stat 537: Homework 4'
 author: "Brandon Fenton and Kenny Flagg"
 date: "Due Friday, Feb 12 at end of day"
-output: html_document
+output: pdf_document
 header-includes: \usepackage{float}
 ---
 

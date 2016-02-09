@@ -8,7 +8,7 @@ header-includes:
 ---
 
 1. _For the ranked data, make a pairs plot of bagplots (using bagplot.pairs). Discuss and identify (by location and name of institution) any potential outliers clearly identified in the pair-wise plots._
-```{r p1_a, echo=F, comment=NA, message=F, warning=F, fig.width=15, fig.height=12, out.width="\\linewidth", out.height="0.75\\linewidth", fig.cap="Pairwise bagplots", fig.pos="H" fig.align="center", cache=T}
+```{r p1_a, echo=F, comment=NA, message=F, warning=F, fig.width=15, fig.height=12, out.width="\\linewidth", out.height="0.75\\linewidth", fig.cap="Pairwise bagplots", fig.pos="H", fig.align="center", cache=T}
 require(aplpack)
 
 cc2015<-read.csv("https://montana.box.com/shared/static/0tp7ooud5sux4wzpkrjgklpudrreu6jc.csv",header=T,na.strings="dnr")
@@ -44,12 +44,9 @@ cc2015Rs[(cc2015Rs_2$PDNFRSTAFF<50 & cc2015Rs_2$S.ER.D>200), c(1, 9, 10)]
 
 Denver is tied for the lowest rank in terms of PDNFRSTAFF; however none of these institutions appear to be outliers in any single variable so they would not have been discovered as possible outliers had we not examined the pairwise plots.
 
-<<<<<<< HEAD
-2. _Read the help file on the rank function. What is the default choice for dealing with ties? How does this show up in the plots of the data set?_
-=======
+
 2. _Read the help file on the rank function. What is the default choice for dealing with ties? How does this show up in the plots of the data set?_
 
->>>>>>> d43840c6d4e73e1ce2ba267bf384e18a03b772f1
 The __rank__ function allows several ways of dealing with ties via the __ties.method__ argument, but the default method is to assign the mean of the ranks the tied observations would hold to each of the tied observations.  If this method is used, rank-based plots involving tied values will contain gaps corresponding to the ranks which have not been assigned.  For example, __rank(c(5,6,6,6,7))__ would assign a rank of 3 to the middle three values, and a plot of ranked values would contain empty space in locations corresponding to ranks 2 and 4 for that variable.
 
 

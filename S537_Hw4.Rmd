@@ -20,14 +20,27 @@ cc2015Rs_2<-cc2015Rs[,c("HUM_RSD","OTHER_RSD","SOCSC_RSD","STEM_RSD","PDNFRSTAFF
 #cc2015Ps2[cc2015Ps2$NAME=="Montana State University",]
 #cc2015Rs[cc2015Rs$NAME=="Montana State University",]
 
-invisible(bagplot.pairs(cc2015Rs))
+invisible(bagplot.pairs(cc2015Rs_2))
 ```
 
-Two institutions are outliers in BASIC2010, with 2010 classifications coded as -3:
+UC Denver and Rockefeller University are potential outliers in STEM\_RSD and PDNFRSTAFF.
 ```{r p1_b, echo=F, comment=NA, message=F, warning=F}
-cc2015Rs[(cc2015Rs$BASIC2010<10) & (cc2015$BASIC2010),1:2]
+cc2015Rs[(cc2015Rs_2$STEM_RSD<100 & cc2015Rs_2$PDNFRSTAFF>200) |
+           (cc2015Rs_2$STEM_RSD>160 & cc2015Rs_2$PDNFRSTAFF<30),
+         c(1, 8, 9)]
 ```
-Knowing that UC Merced was founded just over 10 years ago, it seems reasonable to guess 
+
+CUNY Graduate School is a potential outlier in STEM\_RSD and S.ER.D.
+```{r p1_c, echo=F, comment=NA, message=F, warning=F}
+cc2015Rs[(cc2015Rs_2$STEM_RSD>200 & cc2015Rs_2$S.ER.D<50), c(1, 8, 10)]
+```
+
+UC Denver is also potentially an outlier in PDNFRSTAFF and S.ER.D.
+```{r p1_d, echo=F, comment=NA, message=F, warning=F}
+cc2015Rs[(cc2015Rs_2$PDNFRSTAFF<50 & cc2015Rs_2$S.ER.D>200), c(1, 9, 10)]
+```
+
+Denver is at the lower bound of the observed values of PDNFRSTAFF; however none of these institutions appear to be outliers in any single variable so they would not have been discovered as possible outliers had we not examined the pairwise plots.
 
 2. _MRead the help file on the rank function. What is the default choice for dealing with ties? How does this show up in the plots of the data set?_
 The __rank__ function allows several ways of dealing with ties via the __ties.method__ argument, but the default method is to assign the mean of the ranks the tied observations would hold to each of the tied observations.  If this method is used, rank-based plots involving tied values will contain gaps corresponding to the ranks which have not been assigned.  For example, __rank(c(5,6,6,6,7))__ would assign a rank of 3 to the middle three values, and a plot of ranked values would contain empty space in locations corresponding to ranks 2 and 4 for that variable.
@@ -85,6 +98,10 @@ Problem 1:
 ```{r a1, ref.label='p1_a', eval=F}
 ```
 ```{r b1, ref.label='p1_b', eval=F}
+```
+```{r b1, ref.label='p1_c', eval=F}
+```
+```{r b1, ref.label='p1_d', eval=F}
 ```
 
 Problem 3:

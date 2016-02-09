@@ -172,9 +172,9 @@ Problem 1:
 ```
 ```{r b1, ref.label='p1_b', eval=F}
 ```
-```{r b1, ref.label='p1_c', eval=F}
+```{r c1, ref.label='p1_c', eval=F}
 ```
-```{r b1, ref.label='p1_d', eval=F}
+```{r d1, ref.label='p1_d', eval=F}
 ```
 
 Problem 3:
@@ -184,9 +184,9 @@ Problem 3:
 Problem 4:
 ```{r a4, ref.label='p4_a', eval=F}
 ```
-```{r b4, ref.label='p4_b', eval=F}
+```{r a4b, ref.label='p4_b', eval=F}
 ```
-```{r c4, ref.label='p4_c', eval=F}
+```{r a4c, ref.label='p4_c', eval=F}
 ```
 
 Problem 5:

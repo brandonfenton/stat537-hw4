@@ -108,6 +108,8 @@ score.pch <- score.col
 score.col[which(cc2015Rs$NAME=="Montana State University")] <- 2
 score.pch[which(cc2015Rs$NAME=="Montana State University")] <- 19
 plot(pc.scores, col=score.col, pch=score.pch)
+legend(x=max(pc.scores[,1])*0.7, y=max(pc.scores[,2])*0.97,legend=c(unique(cc2015Rs$BASIC2015),"MSU"), 
+       col = unique(score.col2), pch=unique(score.pch2))
 
 ```
 
@@ -136,13 +138,16 @@ biplot(pcpcs)
 ```
 
 8. _Make a plot of the first PC from the “aggregated” and ranked data and the first PCA from this per capita ranked data with the aggegrated data PC score on the x-axis. Orient the plots so that higher is better, add information from BASIC2015 to the plot and indicate/flag MSU in some fashion._
-```{r p8_a, echo=F, comment=NA, message=F, warning=F, out.width="\\linewidth", out.height="0.3\\linewidth", fig.width=12, fig.height=4}
+```{r p8_a, echo=F, comment=NA, message=F, warning=F, out.width="0.8\\linewidth", out.height="0.8\\linewidth", fig.width=6, fig.height=6}
 pcpc.scores <- as.matrix(cc2015percap_rank) %*% predict(pcpcs)[,1]
 score.col2 <- as.numeric(cc2015Rs$BASIC2015) + 3
 score.pch2 <- score.col
 score.col2[which(cc2015Rs$NAME=="Montana State University")] <- 2
 score.pch2[which(cc2015Rs$NAME=="Montana State University")] <- 19
 plot(x=pc.scores[,1], y=pcpc.scores, col = score.col2, pch=score.pch2)
+
+legend(x=max(pc.scores[,1])*0.7, y=-100,legend=c(unique(cc2015Rs$BASIC2015),"MSU"), 
+       col = unique(score.col2),  pch=unique(score.pch2))
 ```
 
 9. _Discuss MSU’s location on these two dimensions and the separation among the three Carnegie classifications._

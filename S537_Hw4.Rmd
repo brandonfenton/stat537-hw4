@@ -140,9 +140,9 @@ percevals <- pcpcs$sdev^2
 percev.total <- sum(percevals)
 percev.props <- percevals/percev.total
 percev.prop.cum <- cumsum(percev.props)
-pander(data.frame(PC=1:3, Eigenvalue = signif(percevals,3), Proportion = signif(percev.props,3), 
-
-                  Cumulative = signif(percev.prop.cum,3)), caption="Principal components for per-capita variables")
+pander(data.frame(PC=1:3, Eigenvalue = signif(percevals,3), Proportion = signif(percev.props,3),
+                  Cumulative = signif(percev.prop.cum,3)), 
+       caption="Proportions of Variance Explained")
 
 ```
 

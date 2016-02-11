@@ -240,10 +240,6 @@ Problem 8:
 ```{r a8, ref.label='p8_a', eval=F}
 ```
 
-Problem 9:
-```{r a9, ref.label='p9_a', eval=F}
-```
-
 ### About This Markdown File
 
   * File creation date: `r Sys.Date()`

@@ -140,8 +140,10 @@ percev.total <- sum(percevals)
 percev.props <- percevals/percev.total
 percev.prop.cum <- cumsum(percev.props)
 pander(data.frame(PC=1:3, Eigenvalue = signif(percevals,3), Proportion = signif(percev.props,3), 
-                  Cumulative = signif(percev.prop.cum,3)))
+                  Cumulative = signif(percev.prop.cum,3)), caption="Principal components for per-capita variables")
 ```
+
+As can be seen in table 3, the first two principal components for the per capita variables account for 95.6\% of the variance.  The loadings for each component show that PC1 is essentially a weighted average of the three variables (paid non-faculty research staff, STEM research expenditures and non-STEM research expenditures, respectively), while PC2 largely measures non-STEM research expenditures:
 
 ```{r p7_a2, echo=F, comment=NA, message=F, warning=F, out.width="\\linewidth", out.height="0.3\\linewidth", fig.width=12, fig.height=4}
 
@@ -153,9 +155,13 @@ plot(pcpcs, type="lines", main = "Eigenvalues")
 abline(h=c(1, 0.75), lty=2:3)
 ```
 
+The elbow of the scree plot is at PC2.  This provides additional support for the use of the first two principal components for the purpose of analysis.
+
 ```{r p7_c, echo=F, comment=NA, message=F, warning=F, out.width="0.6\\linewidth", out.height="0.4\\linewidth", fig.width=9, fig.height=6, fig.cap="Biplot of the first two PCs", fig.align="center", fig.pos="H"}
 biplot(pcpcs, xlim = c(-0.15, 0.2), col =  c("#00000040", "#ff0000c0"))
 ```
+
+The biplot in figure 6 confirms the relationships between the variables implied by the PC loadings: __PDNFRSTAFF__ is almost perfectly correlated with __S.ER.D__, and both are mostly orthogonal to __NONS.ER.D__.
 
 8. _Make a plot of the first PC from the “aggregated” and ranked data and the first PCA from this per capita ranked data with the aggegrated data PC score on the x-axis. Orient the plots so that higher is better, add information from BASIC2015 to the plot and indicate/flag MSU in some fashion._
 ```{r p8_a, echo=F, comment=NA, message=F, warning=F, out.width="0.8\\linewidth", out.height="0.8\\linewidth", fig.width=6, fig.height=6}

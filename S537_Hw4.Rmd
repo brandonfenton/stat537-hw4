@@ -158,17 +158,19 @@ biplot(pcpcs, xlim = c(-0.15, 0.2), col =  c("#00000040", "#ff0000c0"))
 ```
 
 8. _Make a plot of the first PC from the “aggregated” and ranked data and the first PCA from this per capita ranked data with the aggegrated data PC score on the x-axis. Orient the plots so that higher is better, add information from BASIC2015 to the plot and indicate/flag MSU in some fashion._
-```{r p8_a, echo=F, comment=NA, message=F, warning=F, out.width="0.8\\linewidth", out.height="0.8\\linewidth", fig.width=6, fig.height=6}
+
+```{r p8_a, echo=F, comment=NA, message=F, warning=F, out.width="0.5\\linewidth", out.height="0.5\\linewidth", fig.width=5, fig.height=5, fig.align="center", fig.cap="Comparison of first principal components, colored by Carnegie classification", fig.pos="H"}
 # pcpc.scores <- as.matrix(cc2015percap_rank) %*% predict(pcpcs)[,1]
 pcpc.scores <- predict(pcpcs)[,1]
 score.col2 <- as.numeric(cc2015Rs$BASIC2015) + 3
 score.pch2 <- score.col
 score.col2[which(cc2015Rs$NAME=="Montana State University")] <- 2
 score.pch2[which(cc2015Rs$NAME=="Montana State University")] <- 19
-plot(x=pc.scores[,1], y=pcpc.scores, col = score.col2, pch=score.pch2, ylab="First aggregate PC",
-     xlab = "First per capita PC")
+plot(x=pc.scores[,1], y= -pcpc.scores, col=score.col2, pch=score.pch2,
+     xlab="First aggregate PC",
+     ylab="First per capita PC")
 
-legend(x=max(pc.scores[,1])*0.7, y=max(pcpc.scores*0.98),
+legend("bottomright",
        legend=c(levels(unique(cc2015Rs$BASIC2015)),"MSU"), 
        col = unique(score.col2),  pch=unique(score.pch2))
 ```
@@ -177,7 +179,7 @@ legend(x=max(pc.scores[,1])*0.7, y=max(pcpc.scores*0.98),
 ```{r p9_a, echo=F, comment=NA, message=F, warning=F, out.width="\\linewidth", out.height="0.3\\linewidth", fig.width=12, fig.height=4}
 ```
 
-As in the plot of PC1 vs PC2 from the aggregate data, the three classifications occupy three separate and visually distinct ranges of values.  MSU again falls clearly within the grouping for classification 16.  There is a clear linear relationship between the two PCs, suggesting that they contain similar information.  This implies that the rankings were not unduly influenced by school size (a larger institution will tend to have more faculty, make more research expenditures, etc. ceteris paribus).
+As in the plot of PC1 vs PC2 from the aggregate data, the three classifications occupy three separate and visually distinct ranges of values.  MSU again falls clearly within the grouping for classification 16.  There is a clear linear relationship between the two PCs, suggesting that they contain similar information.  This implies that the rankings were not unduly influenced by school size (a larger institution will tend to have more faculty, make more research expenditures, etc. ceteris paribus). Furthermore, the boundaries between rankings appear almost vertical on this plot, making them more strongly related to the aggregate variables than the per capita variables.
 
 ## R Code Appendix:
 Problem 1:
